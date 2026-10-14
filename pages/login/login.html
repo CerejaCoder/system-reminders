@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/src/output.css" rel="stylesheet">
+</head>
+<body>
+    <main class="flex w-4/5 m-auto mt-30 gap-30 flex-col justify-center items-center">
+        <h1 class="text-5xl">Login</h1>
+
+        <form class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 max-w-9/10">
+            <fieldset class="fieldset">
+                <label for="login" class="label">Login</label>
+                <input type="text" class="input validator" placeholder="Login" name="login" id="login" pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" required />
+                <p class="validator-hint hidden">Obrigatório</p>
+            </fieldset>
+
+            <label class="fieldset">
+                <label for="password" class="label">Senha</label>
+                <input type="password" class="input validator" placeholder="Senha" name="password" id="password" required />
+                <span class="validator-hint hidden">Obrigatório</span>
+            </label>
+
+            <p>Ainda não possui uma conta? <a href="/pages/cadastro/cadastro.html" class="text-sky-500">Click aqui</a></p>
+
+            <button class="btn btn-neutral mt-4" type="submit">Login</button>
+            <button class="btn btn-ghost mt-1" type="reset">Cancelar</button>
+        </form>
+    </main>
+
+    <button class="btn hidden" onclick="my_modal_1.showModal()" id="notify"></button>
+    <dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold titleNotify"></h3>
+        <p class="py-4 bodyNotify"></p>
+        <div class="modal-action">
+        <form method="dialog">
+            <button class="btn">Fechar</button>
+        </form>
+        </div>
+    </div>
+    </dialog>
+
+    <script src="/pages/login/login.js" type="module"></script>
+</body>
+</html>

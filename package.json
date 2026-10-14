@@ -1,0 +1,35 @@
+{
+  "name": "system-reminders",
+  "version": "1.0.0",
+  "description": "An simple aplication front-end",
+  "keywords": [
+    "Front-end",
+    "HTML",
+    "CSS",
+    "Tailwind",
+    "Javascript",
+    "JWT"
+  ],
+  "homepage": "https://github.com/CerejaCoder/system-reminders#readme",
+  "bugs": {
+    "url": "https://github.com/CerejaCoder/system-reminders/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CerejaCoder/system-reminders.git"
+  },
+  "author": "Guilherme Cereja",
+  "type": "module",
+  "main": "/login.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "daisyui": "^5.7.50"
+  }
+}
