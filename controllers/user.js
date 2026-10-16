@@ -6,22 +6,19 @@ export async function cadastrar(login, senha){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            login: login,
-            senha: senha
-        })
+        body: JSON.stringify({login: login, senha: senha})
     };
 
     try{
         const res = await fetch(configs.urlBase + '/usuario/signup', obj);
 
+        const datas = (await res.json());
+
         if (!res.ok){
-            throw new Error('Erro ao realizar o cadastro!');
+            throw new Error(datas.msg);
         }
 
-        const token = await res.json();
-
-        return {type: 'sucesso', token: token.token};
+        return {type: 'sucesso', token: datas.token};
 
     } catch(err){
         return {type: 'error', msg: err.message};
@@ -43,13 +40,13 @@ export async function login(login, senha){
     try{
         const res = await fetch(configs.urlBase + '/usuario/login', obj);
 
+        const datas = await res.json();
+
         if (!res.ok){
-            throw new Error('Erro ao realizar o login!');
+            throw new Error(datas.msg);
         }
 
-        const token = (await res.json()).token;
-
-        return {type: 'sucesso', token: token};
+        return {type: 'sucesso', token: datas.token};
 
     } catch(err){
         return {type: 'error', msg: err.message};
@@ -68,15 +65,16 @@ export async function logout(token) {
     try{
         const res = await fetch(configs.urlBase + '/usuario/logout', obj);
 
+        const datas = await res.json();
+        
         if (!res.ok){
-            throw new Error('Ocorreu um erro ao realizar o logout!');
+            throw new Error(datas.msg);
         }
 
-        const msg = (await res.json()).msg;
+        return {type: 'warning', msg: datas.msg};
 
-        return {type: 'aviso', msg: msg};
     } catch(err){
-        return {type: 'error', msg: err.msg};
+        return {type: 'error', msg: err.message};
     }
 }
 
@@ -92,15 +90,16 @@ export async function check(token){
     try{
         const res = await fetch(configs.urlBase + '/usuario/check', obj);
 
+        const datas = await res.json();
+
         if (!res.ok){
-            throw new Error('Ocorreu um erro ao verificar se o usuário ainda está logado!');
+            throw new Error(datas.msg);
         }
 
-        const msg = (await res.json()).msg;
+        return {type: 'warning', msg: datas.msg};
 
-        return {type: 'aviso', msg: msg};
     } catch(err){
-        return {type: 'error', msg: err.msg};
+        return {type: 'error', msg: err.message};
     }
 }
 
@@ -115,15 +114,18 @@ export async function renew(token) {
 
     try{
         const res = await fetch(configs.urlBase + '/usuario/renew', obj);
-
+        
+        const datas = await res.json();
+        console.log(res);
+        console.log(datas);
+        
         if (!res.ok){
-            throw new Error('Ocorreu um erro ao renovar o login!');
+            throw new Error(datas.msg);
         }
 
-        const token = (await res.json()).token;
+        return {type: 'warning', token: datas.token};
 
-        return {type: 'aviso', token: token};
     } catch(err){
-        return {type: 'error', msg: err.msg};
+        return {type: 'error', msg: err.message};
     }
 }

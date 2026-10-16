@@ -11,11 +11,11 @@ async function get_lembretes(token){
 
     try{
         let res = await fetch(configs.urlBase + '/lembrete', obj);
-
+        
         if (!res.ok){
-            throw new Error('Não foi possível se conectar ao servidor');
+            throw new Error(datas.msg);
         }
-
+        
         const datas = await res.json();
 
         return {type: 'success', datas: datas};
@@ -113,12 +113,12 @@ async function delete_reminder(token, id){
 
     try{
         const res = await fetch(configs.urlBase + `/lembrete/${id}`, obj);
+        
+        const datas = await res.json();
 
         if (!res.ok){
-            throw new Error('Não foi possível se conectar ao servidor');
+            throw new Error(datas.msg);
         }
-
-        const datas = await res.json();
         
         return {type: 'sucess', msg: datas.msg};
 
