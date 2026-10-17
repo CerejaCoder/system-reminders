@@ -1,3 +1,3 @@
 export const configs = {
-    urlBase: 'CAMINHA_DA_API'
+    urlBase: 'CAMINHO_DA_API'
 }
