@@ -1,6 +1,6 @@
 import {configs} from '../configs.js';
 
-async function get_lembretes(token){
+export async function get_lembretes(token){
     const obj = {
         method: 'GET',
         headers: {
@@ -25,7 +25,7 @@ async function get_lembretes(token){
     }
 }
 
-async function get_lembrete(token, id){
+export async function get_lembrete(token, id){
     const obj = {
         method: 'GET',
         headers: {
@@ -50,7 +50,7 @@ async function get_lembrete(token, id){
     }
 }
 
-async function create_reminder(token, texto){
+export async function create_reminder(token, texto){
     const obj = {
         method: 'POST',
         headers: {
@@ -76,7 +76,7 @@ async function create_reminder(token, texto){
     }
 }
 
-async function edit_reminder(token, texto, id){
+export async function edit_reminder(token, texto, id){
     const obj = {
         method: 'PUT',
         headers: {
@@ -102,7 +102,7 @@ async function edit_reminder(token, texto, id){
     }
 }
 
-async function delete_reminder(token, id){
+export async function delete_reminder(token, id){
     const obj = {
         method: 'DELETE',
         headers: {
