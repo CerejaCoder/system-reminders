@@ -31,10 +31,7 @@ search.addEventListener('keydown', async (e) => {
 
         if (reminders.length > 0){
             for (const reminder of reminders){
-                const dateTime = reminder.data.split(' ');
-                const data = dateTime[0].split('-');
-                const formattedDate = `Data: ${data[2]}/${data[1]}/${data[0]}`;
-                const formattedTime = `Horário de Criação: ${dateTime[1].split('.')[0]}`;
+                const [formattedDate, formattedTime] = transformDate(reminder.data);
                 
                 create_card(reminder.texto, formattedDate, formattedTime, reminder.id);
             }   
@@ -261,11 +258,9 @@ async function loadReminders(){
     }
 
     for (const reminder of reminders){
-        const dateTime = reminder.data.split(' ');
-        const data = dateTime[0].split('-');
-        dateTime[0] = `Data: ${data[2]}/${data[1]}/${data[0]}`
-        dateTime[1] = `Horário de Criação: ${dateTime[1].split('.')[0]}`;
-        create_card(reminder.texto, dateTime[0], dateTime[1], reminder.id);
+        const [formattedDate, formattedTime] = transformDate(reminder.data);
+        
+        create_card(reminder.texto, formattedDate, formattedTime, reminder.id);
     }
 
     closeLoading();
@@ -314,18 +309,11 @@ function informationNotReminders(){
 
 async function searchByReminderName(name){
     await checkLogin();
+
     const token = localStorage.getItem('token');
     const res = await get_lembretes(token);
-    const datas = res.datas;
-    const selectReminders = [];
 
-    for (const reminder of datas){
-        if (reminder.texto.toLowerCase().includes(name)){ 
-            selectReminders.push(reminder);
-        }
-    }
-
-    return selectReminders;
+    return res.datas.filter((reminder) => reminder.texto.toLowerCase().includes(name.toLowerCase()));
 }
 
 async function editReminder(id){
@@ -412,13 +400,10 @@ async function editReminder(id){
 
         btnCancelar.addEventListener('click', async () => loadReminders());
 
-        const dateTime = res.datas.data.split(' ');
-        const data = dateTime[0].split('-');
-        dateTime[0] = `${data[2]}/${data[1]}/${data[0]}`
-        dateTime[1] = `${dateTime[1].split('.')[0]}`;
+        const [formattedDate, formattedTime] = transformDate(res.datas.data);
 
-        inputTextData.value = dateTime[0];
-        inputTextTime.value = dateTime[1];
+        inputTextData.value = formattedDate;
+        inputTextTime.value = formattedTime;
 
         fieldsetText.append(labelText, inputText, validatorText);
         fieldsetData.append(labelTextData, inputTextData);
@@ -443,6 +428,15 @@ async function editReminder(id){
     }
 
     closeLoading();
+}
+
+function transformDate(fullDate){
+    const dateTime = fullDate.split(' ');
+    const data = dateTime[0].split('-');
+    const formattedDate = `Data: ${data[2]}/${data[1]}/${data[0]}`;
+    const formattedTime = `Horário de Criação: ${dateTime[1].split('.')[0]}`;
+
+    return [formattedDate, formattedTime];
 }
 
 await updateCountReminders();
